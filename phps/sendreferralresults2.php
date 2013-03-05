@@ -13,8 +13,10 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 var url="checkEmailExist.php?email="+textselect+'&method=getreferalDetails';
                 $.getJSON(url, function(data) {						  
                     
-                        alert(data.other_comments_txt);
+                        alert(data.staff_id);
                         $("#providername").val("data.staff_id");
+                        $("#testtoperform").val(data.tests_to_perform_txt);
+                        
                    
                 });
             
@@ -201,7 +203,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                     <p>
                                         Test(s) to Perform:</p></td>
                                 <td class="Right">
-                                    <p><textarea rows="4" cols="50" name="testtoperform" class="width320">
+                                    <p><textarea rows="4" cols="50" id="testtoperform" name="testtoperform" class="width320">
 
                                         </textarea></p>
                                 </td>
