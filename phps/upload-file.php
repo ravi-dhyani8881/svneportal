@@ -3,15 +3,16 @@ require_once '../includes/global.inc.php';
 $uploaddir = './uploads/'; 
 $file = $uploaddir . basename($_FILES['uploadfile']['name']); 
 $size=$_FILES['uploadfile']['size'];
+
 if($size>1048576)
 {
-    $_SESSION['upload'] = $file;
+    
 	echo "error file size > 1 MB";
 	unlink($_FILES['uploadfile']['tmp_name']);
 	exit;
 }
 if (move_uploaded_file($_FILES['uploadfile']['tmp_name'], $file)) { 
-    $_SESSION['upload'] = $file;
+    
   echo "success"; 
 } else {
 	echo "error ".$_FILES['uploadfile']['error']." --- ".$_FILES['uploadfile']['tmp_name']." %%% ".$file."($size)";

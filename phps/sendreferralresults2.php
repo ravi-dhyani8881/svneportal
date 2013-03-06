@@ -5,22 +5,25 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
     ?>
 
     <script type="text/javascript">
-
-
-        function getTotalRecordOnAjax() { 
-            
-                var textselect=$('#referal option:selected').val();
-                var url="checkEmailExist.php?email="+textselect+'&method=getreferalDetails';
-                $.getJSON(url, function(data) {						  
-                    
-                        alert(data.staff_id);
-                        $("#providername").val("data.staff_id");
-                        $("#testtoperform").val(data.tests_to_perform_txt);
+        
+        function getTotalRecordOnAjax() {                                     
+            var textselect=$('#referal option:selected').val();            
+            var url="checkEmailExist.php?email="+textselect+'&method=getreferalDetails';
+            $.getJSON(url, function(data) {			                                              
+                $("#providername").val(data.dfirst_name +' '+data.dlast_name);
+                $("#testtoperform").val(data.tests_to_perform_txt);                                    
+                $("#patientname").val(data.pfirst_name +' '+data.plast_name);
+                $("#organization").val(data.dorg_name);            
+                $("#pdob").val(data.pDATE_OF_BIRTH);
                         
-                   
-                });
-            
+                if(data.pGENDER_REPLACE=='M'){
+                    $("#gender").val("Male");
+                }else{
+                    $("#gender").val("Female");         
+                }                        
+            });                                    
         }
+        
         $(function(){
             $('#swfupload-control').swfupload({
                 upload_url: "upload-file.php",
@@ -80,7 +83,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 // upload has completed, try the next one in the queue
                 $(this).swfupload('startUpload');
             })                      
-                                        
+                                                                
         });	
 
     </script>
@@ -136,9 +139,6 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
 
                                             <?php
                                             while ($row = mysql_fetch_array($result)) {
-
-
-
                                                 echo "<option value='$row[referral_id]'>$row[first_name]$row[last_name] </option>";
                                             }
                                             ?>
@@ -167,7 +167,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                     <p>
                                         Organization:</p></td>
                                 <td class="Right">
-                                    <p><input class="width320" type="text" name="organization" size="50" maxlength="50" /></p>
+                                    <p><input class="width320" type="text" id="organization" name="organization" size="50" maxlength="50" /></p>
                                 </td>
                             </tr>
                             <tr class="textBoxTable"><td class="Left">
@@ -182,21 +182,21 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                     <p>
                                         Name:</p></td>
                                 <td class="Right">
-                                    <p><input class="width320" type="text" name="name" size="50" maxlength="50" /></p>
+                                    <p><input class="width320" type="text" id="patientname" name="patientname" size="50" maxlength="50" /></p>
                                 </td>
                             </tr>
                             <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         Gender:</p></td>
                                 <td class="Right">
-                                    <p><input class="width320" type="text" name="gender" size="10" maxlength="10" /></p>
+                                    <p><input class="width320" type="text" id="gender" name="gender" size="10" maxlength="10" /></p>
                                 </td>
                             </tr>
                             <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         Date of Birth:</p></td>
                                 <td class="Right">
-                                    <p><input class="width320" type="text" name="dob" id="datepicker" /></p>
+                                    <p><input class="width320" type="text" id="pdob" name="dob" id="datepicker" /></p>
                                 </td>
                             </tr>
                             <tr class="textBoxTable"><td class="Left">
