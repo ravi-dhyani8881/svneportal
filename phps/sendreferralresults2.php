@@ -5,17 +5,27 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
     ?>
 
     <script type="text/javascript">
-        
+            
         function getTotalRecordOnAjax() {                                     
             var textselect=$('#referal option:selected').val();            
             var url="checkEmailExist.php?email="+textselect+'&method=getreferalDetails';
             $.getJSON(url, function(data) {			                                              
+
+                $('#hfield').append('<input type="hidden" id="staffid" name="staffid" value="'+data.staff_id+'" />');
+                $('#hfield').append('<input type="hidden" id="pid" name="pid" value="'+data.patient_id+'" />');
+                
+                
                 $("#providername").val(data.dfirst_name +' '+data.dlast_name);
-                $("#testtoperform").val(data.tests_to_perform_txt);                                    
+                $("#testtoperform").val(data.tests_to_perform_txt);    
+                $("#specialnstruc").val(data.spcl_inst_txt);    
+                $("#othercomment").val(data.other_comments_txt);    
+                
+                
+                
                 $("#patientname").val(data.pfirst_name +' '+data.plast_name);
                 $("#organization").val(data.dorg_name);            
                 $("#pdob").val(data.pDATE_OF_BIRTH);
-                        
+                            
                 if(data.pGENDER_REPLACE=='M'){
                     $("#gender").val("Male");
                 }else{
@@ -23,7 +33,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 }                        
             });                                    
         }
-        
+            
         $(function(){
             $('#swfupload-control').swfupload({
                 upload_url: "upload-file.php",
@@ -83,7 +93,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 // upload has completed, try the next one in the queue
                 $(this).swfupload('startUpload');
             })                      
-                                                                
+                                                                    
         });	
 
     </script>
@@ -160,6 +170,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                     <p>
                                         Name:</p></td>
                                 <td class="Right">
+                                    <span id="hfield"></span>
                                     <p><input class="width320" type="text" id="providername" name="providername" size="50" maxlength="50" /></p>
                                 </td>
                             </tr>
@@ -208,6 +219,26 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                         </textarea></p>
                                 </td>
                             </tr>
+                           
+                            
+                            <tr class="textBoxTable"><td class="Left">
+                                    <p>
+                                        Special Instructions:</p></td>
+                                <td class="Right">
+                                    <p><textarea rows="4" cols="50" id="specialnstruc" name="specialnstruc" class="width320"></textarea></p>
+                                </td>
+                            </tr>
+                            
+                             <tr class="textBoxTable"><td class="Left">
+                                    <p>
+                                        Other Comments:</p></td>
+                                <td class="Right">
+                                    <p><textarea rows="4" cols="50" id="othercomment" name="othercomment" class="width320">
+
+                                        </textarea></p>
+                                </td>
+                            </tr>
+                            
                             <tr class="textBoxTable"><td class="Left">
                                     <p class="bold">
                                         Generic Information</p></td>
@@ -282,9 +313,28 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
 } else {
 
     if (isset($_POST['action'])) {
-        if ($_POST['action'] == 'Send Now')
-            $nextpage = 'testUpload.php';
-        else if ($_POST['action'] == 'Send Later')
+        if ($_POST['action'] == 'Send Now') {
+
+
+            $referalid = $_POST['doctorsname'];
+            $staffid = $_POST['staffid'];
+            $pid = $_POST['pid'];
+            $providername = $_POST['providername'];
+            $providerOrganization = $_POST['organization'];
+            
+            $testtoperform = $_POST['testtoperform'];
+            
+            $specialnstruc = $_POST['specialnstruc'];
+            $othercomment = $_POST['othercomment'];
+            
+              mysql_query("INSERT INTO dr_patient_refrl (referral_id , staff_id,patient_id, rfrd_staff_id , TESTS_TO_PERFORM_TXT , SPCL_INST_TXT)
+
+					VALUES (0, $staff_id','$patient','7' , '$testtoperform' , '$specialnstruc' )");
+            
+
+
+            $nextpage = 'maind.php';
+        } else if ($_POST['action'] == 'Send Later')
             $nextpage = 'maind.php';
         else if ($_POST['action'] == 'Cancel')
             $nextpage = 'maind.php';

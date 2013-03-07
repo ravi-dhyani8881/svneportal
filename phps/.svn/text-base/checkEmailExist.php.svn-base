@@ -37,9 +37,13 @@ if ($method == 'checkmail') {
     $dr_row = mysql_fetch_assoc($dr_result);
 
     
-$finalArray=array("staff_id"=>$row['staff_id'],"Ben"=>"37","Joe"=>"43");
+$finalArray=array("staff_id"=>$row['staff_id'],"patient_id"=>$row['patient_id'],"tests_to_perform_txt"=>$row['tests_to_perform_txt'] ,
+    "spcl_inst_txt"=>$row['spcl_inst_txt'] , "other_comments_txt"=>$row['other_comments_txt'] , "plast_name" =>$patient_row['last_name'] ,
+    "pfirst_name"=>$patient_row['first_name'] , "pGENDER_REPLACE"=>$patient_row['GENDER_REPLACE'] , "pDATE_OF_BIRTH"=>$patient_row['DATE_OF_BIRTH'],
+     "dlast_name"=>$dr_row['last_name'] , "dfirst_name"=>$dr_row['first_name'] , "dorg_name"=>$dr_row['org_name']
+    );
 
-    echo json_encode($row);
+    echo json_encode($finalArray);
 } else {
     echo 'done';
 }
