@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 03, 2013 at 05:24 PM
+-- Generation Time: Mar 09, 2013 at 06:15 PM
 -- Server version: 5.5.14
 -- PHP Version: 5.3.5
 
@@ -49,7 +49,7 @@ INSERT INTO `address` (`ADDRESS_ID`, `is_US_ADDRESS`, `ADDR_street1`, `ADDR_stre
 (5, NULL, '567 main street', '', '', 'baltimore', NULL, 'wv', '200-100-3000', '111-222-3333'),
 (6, NULL, '5544 street', '', '', 'boyds', NULL, 'md', '222-444-5555', '111-222-3333'),
 (9, NULL, 'd31 streeet ', '', '', 'germantown', NULL, 'md', '222-111-3333', '333-222-5555'),
-(16, NULL, 'yyyyyy', '', '', 'fffff', '88888-8888', 'md', '(000) 000-0000', '(444) 444-4444'),
+(16, NULL, 'yyyyyy', '', '', 'fffff', '88888-8888', 'md', '(000) 000-0000 x3333', '(444) 444-4444'),
 (17, NULL, '123 org stree', '', '', 'boyds', NULL, 'md', '00work', '00cell'),
 (25, NULL, '123 p45 street', '', '', 'new city', NULL, 'VA', '111-111-1111', '222-111-2222'),
 (29, NULL, '1234 main street', '', '', 'fairfax', NULL, 'VA', '571-212-5555', '202-111-2222'),
@@ -113,7 +113,8 @@ INSERT INTO `doctor_patient` (`STAFF_ID`, `PATIENT_ID`) VALUES
 (23, 53),
 (21, 54),
 (24, 55),
-(24, 56);
+(24, 56),
+(21, 57);
 
 -- --------------------------------------------------------
 
@@ -137,29 +138,61 @@ CREATE TABLE IF NOT EXISTS `dr_patient_refrl` (
   `RFRD_COMMENTS_TXT` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `RFRD_RECMMD_TRMT_TXT` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `APPOINTMENT_DATE` date DEFAULT NULL,
+  `attachment1` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attachment2` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attachment3` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attachment4` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attachment5` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`REFERRAL_ID`),
   KEY `DR_PATIENT_REFRL_FK1` (`STAFF_ID`,`PATIENT_ID`),
   KEY `DR_PATIENT_REFRL_FK2` (`RFRNG_STATUS_CD`),
   KEY `DR_PATIENT_REFRL_FK3` (`RFRD_STAFF_ID`),
   KEY `DR_PATIENT_REFRL_FK4` (`RFRD_STATUS_CD`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `dr_patient_refrl`
 --
 
-INSERT INTO `dr_patient_refrl` (`REFERRAL_ID`, `STAFF_ID`, `PATIENT_ID`, `RFRNG_STATUS_CD`, `RFRNG_DATE`, `TESTS_TO_PERFORM_TXT`, `SPCL_INST_TXT`, `OTHER_COMMENTS_TXT`, `RFRD_STAFF_ID`, `RFRD_STATUS_CD`, `RFRD_DATE`, `RFRD_RESULTS_TXT`, `RFRD_COMMENTS_TXT`, `RFRD_RECMMD_TRMT_TXT`, `APPOINTMENT_DATE`) VALUES
-(1, 21, 52, 2, '2013-02-28 22:13:25', '\r\n   blood test \r\n                                    ', '\r\n    \r\n                                    ', '\r\n    \r\n                                    ', 2, 3, NULL, 'result\r\n', 'result\r\n', NULL, NULL),
-(2, 21, 52, NULL, '2013-02-24 11:46:47', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 21, 54, 2, '2013-03-03 08:06:00', '\r\n    \r\n       gggg                             ', '\r\n    \r\n       ggg                             ', '\r\n    \r\nggg', 2, 3, NULL, NULL, NULL, NULL, NULL),
-(4, 21, 54, 2, '2013-03-03 08:17:40', '\r\n    \r\n           kkkkkkkkkk                         ', '\r\n    kkkkkkkkkk\r\n                                    ', '\r\n    kkkkkkkkk\r\n                                    ', 22, 3, NULL, NULL, NULL, NULL, NULL),
-(5, 21, 52, 2, '2013-03-03 08:25:18', '\r\n    \r\n      gggg                              ', 'hhhhh\r\n    \r\n                                    ', '\r\nhhhhhhhhh\r\n                                    ', 8, 3, NULL, NULL, NULL, NULL, NULL),
-(6, 21, 52, 2, '2013-03-03 11:24:44', 'doctor', 'doctor\r\n    \r\n                                    ', 'doctor                                  ', 24, 3, NULL, NULL, NULL, NULL, NULL),
-(7, 24, 55, 2, '2013-03-03 11:31:24', '\r\n    \r\n     doctor                               ', '\r\n    \r\n      \r\n    \r\n     doctor                                                             ', '\r\n    \r\n      \r\n    \r\n     doctor                                                             ', 21, 3, NULL, NULL, NULL, NULL, NULL),
-(8, 21, 54, NULL, '2013-03-03 11:34:09', NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 21, 52, 1, '2013-03-03 11:42:12', '\r\n    \r\n              kkkk                      ', '\r\n    \r\n           mmmmmm                         ', '\r\nllllllllll\r\n                                    ', 24, NULL, NULL, 'iiii', 'iiiiiiiiii', NULL, NULL),
-(10, 24, 55, 2, '2013-03-03 12:41:31', 'heart                   ', 'heart                   \r\n    \r\n                                    ', 'heart                   \r\n    \r\n                                    ', 21, 3, NULL, NULL, NULL, NULL, NULL),
-(11, 24, 56, 2, '2013-03-03 12:46:41', 'Test patient\r\n                                    ', 'Test patient\r\n    \r\n                                    ', 'Test patient \r\n                                    ', 21, 3, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `dr_patient_refrl` (`REFERRAL_ID`, `STAFF_ID`, `PATIENT_ID`, `RFRNG_STATUS_CD`, `RFRNG_DATE`, `TESTS_TO_PERFORM_TXT`, `SPCL_INST_TXT`, `OTHER_COMMENTS_TXT`, `RFRD_STAFF_ID`, `RFRD_STATUS_CD`, `RFRD_DATE`, `RFRD_RESULTS_TXT`, `RFRD_COMMENTS_TXT`, `RFRD_RECMMD_TRMT_TXT`, `APPOINTMENT_DATE`, `attachment1`, `attachment2`, `attachment3`, `attachment4`, `attachment5`) VALUES
+(1, 21, 52, 2, '2013-03-07 20:09:18', '\r\n   blood test \r\n                                    ', '\r\n    \r\n                                    ', '\r\n    \r\n                                    ', 2, 3, NULL, 'result\r\n', 'result\r\n', NULL, NULL, 'none', '', NULL, NULL, NULL),
+(2, 21, 52, NULL, '2013-02-24 11:46:47', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(3, 21, 54, 2, '2013-03-03 08:06:00', '\r\n    \r\n       gggg                             ', '\r\n    \r\n       ggg                             ', '\r\n    \r\nggg', 2, 3, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(4, 21, 54, 7, '2013-03-09 11:27:02', '\r\n    \r\n           kkkkkkkkkk                         ', '\r\n    kkkkkkkkkk\r\n                                    ', '\r\n    kkkkkkkkk\r\n                                    ', 22, 8, NULL, 'newreferralpage1newreferralpage1\r\n                                        ', 'newreferralpage1newreferralpage1\r\n                                        ', 'newreferralpage1newreferralpage1\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(5, 21, 52, 2, '2013-03-03 08:25:18', '\r\n    \r\n      gggg                              ', 'hhhhh\r\n    \r\n                                    ', '\r\nhhhhhhhhh\r\n                                    ', 8, 3, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(6, 21, 52, 7, '2013-03-08 22:13:38', 'doctor', 'doctor\r\n    \r\n                                    ', 'doctor                                  ', 24, 8, NULL, '\r\n   hhhhhhhhhhhhhhh                                     ', 'hhhhhhhhhhhhhh\r\n                                        ', 'hhhhhhhhhh\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(7, 24, 55, 7, '2013-03-08 21:40:20', '\r\n    \r\n     doctor                               ', '\r\n    \r\n      \r\n    \r\n     doctor                                                             ', '\r\n    \r\n      \r\n    \r\n     doctor                                                             ', 21, 8, NULL, '\r\n                                        vvvvvvvvvvvvvvvvvvv', 'vvvvvvvvvvvvvvvv\r\n                                        ', '\r\n            vvvvvvvvvvv                            ', NULL, 'none', '', NULL, NULL, NULL),
+(8, 21, 54, NULL, '2013-03-03 11:34:09', NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(9, 21, 52, 1, '2013-03-03 11:42:12', '\r\n    \r\n              kkkk                      ', '\r\n    \r\n           mmmmmm                         ', '\r\nllllllllll\r\n                                    ', 24, NULL, NULL, 'iiii', 'iiiiiiiiii', NULL, NULL, 'none', '', NULL, NULL, NULL),
+(10, 24, 55, 7, '2013-03-08 21:58:04', 'heart                   ', 'heart                   \r\n    \r\n                                    ', 'heart                   \r\n    \r\n                                    ', 21, 8, NULL, 'haaaaaaaaaaaaaaaaaaaa                                    ', '\r\n                                        haaaaaaaaaaaaaaaaaaaa                                    ', '\r\n                                       haaaaaaaaaaaaaaaaaaaa                                    ', NULL, 'none', '', NULL, NULL, NULL),
+(11, 24, 56, 7, '2013-03-08 22:23:21', 'Test patient\r\n                                    ', 'Test patient\r\n    \r\n                                    ', 'Test patient \r\n                                    ', 21, 8, NULL, 'oooooooooooo                                   ', 'oooooooooo\r\n                                        ', 'oooooooo\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(12, 21, 52, NULL, '2013-03-07 23:37:54', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(13, 21, 52, 2, '2013-03-07 23:45:16', 'head\r\n                                    ', 'head\r\n                                    \r\n    \r\n                                    ', 'head\r\n                                    \r\n    \r\n                                    ', 2, 3, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(14, 21, 52, NULL, '2013-03-07 23:45:50', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(15, 21, 52, 7, '2013-03-08 21:46:49', 'chandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarh    ', 'chandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarh\r\n    \r\n                                    ', 'chandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarh', 24, 8, NULL, 'chandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarh\r\n                                        ', '\r\n                                       chandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarh', 'chandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarhchandigarh\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(16, 21, 54, 2, '2013-03-08 22:17:45', 'lllllllllllllllllllllll                     ', 'lllllllllllllllllllllll                     \r\n    \r\n                                    ', 'lllllllllllllllllllllll                     \r\n    \r\n                                    ', 2, 3, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(17, 24, 55, 2, '2013-03-08 22:28:30', '\r\n    \r\n      nnnnnnnnn                              ', '\r\n    \r\n    nnnnnnnnnnn                                 ', '\r\nnnnnnnnnn\r\n                                    ', 2, 3, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(18, 24, 55, 7, '2013-03-08 22:39:30', 'kkkkkkkkk\r\n    \r\n                                    ', 'kkkkkkkkkkkkk\r\n    \r\n                                    ', '\r\nkkkkkkkk\r\n                                    ', 21, 8, NULL, '\r\n                                        jjjjjjjjj', '\r\n  nnnnnnnnnnnnn                                      ', 'nnnnnnnnnnnnnnnn\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(19, 21, 52, 7, '2013-03-09 10:46:25', 'hhhhhhhhhhhhhhhhhffffffffffffffffffffffffffffffff                           ', 'hhhhhhhhhhhhhhhhhffffffffffffffffffffffffffffffff                           \r\n    \r\n                                    ', 'hhhhhhhhhhhhhhhhhffffffffffffffffffffffffffffffff                                            ', 24, 8, NULL, '\r\n                                        jjjjjjjjjjjj', 'jjjjjjjjjjjjjjj\r\n                                        ', 'jjjjjjjjjjjjjj\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(20, 24, 55, NULL, '2013-03-08 22:52:25', NULL, NULL, NULL, 21, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(21, 24, 55, NULL, '2013-03-08 22:53:54', NULL, NULL, NULL, 21, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(22, 24, 55, 2, '2013-03-08 22:55:20', '\r\n love\r\n                                    love\r\n                                    love\r\n                                    love\r\n                                                                       ', '\r\n    \r\n        blove\r\n                                                                ', '\r\n    \r\n    love\r\n                                                                    ', 2, 3, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(23, 24, 55, 7, '2013-03-09 10:45:08', '\r\n    \r\n         love\r\n                                                               ', '\r\n    \r\n              love\r\n                                    vv                      ', '\r\n    \r\n                         love\r\n                                    love\r\n                                    love\r\n                                    love\r\n                                    love\r\n                                           ', 21, 8, NULL, '\r\n                                        jjjjjjjjjjjjjjjjj', 'jjjjjjjjjjjjjjjjjj\r\n                                        ', 'jjjjjjjjjjjjjjjjj\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(24, 24, 55, 7, '2013-03-09 10:51:29', 'Mumbai                           Mumbai                           Mumbai                           Mumbai                           ', 'Mumbai                           Mumbai                           Mumbai                           Mumbai                           Mumbai                           Mumbai                           \r\n    \r\n                                    ', 'Mumbai                           Mumbai                           Mumbai                           Mumbai                           \r\n    \r\n                                    ', 21, 8, NULL, '\r\n                                        jjjj', 'jjjjjjj\r\n                                        ', 'jjjjjjjj\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(25, 21, 57, 7, '2013-03-09 10:53:29', 'WahingtonWahingtonWahingtonWahington                             ', 'WahingtonWahingtonWahingtonWahingtonWahington\r\n    \r\n                                    ', 'WahingtonWahingtonWahingtonWahingtonWahington\r\n    \r\n                                    ', 24, 8, NULL, 'WahingtonWahingtonWahingtonWahington', 'WahingtonWahingtonWahingtonWahingtonWahington                                     ', 'WahingtonWahingtonWahingtonWahington\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(26, 24, 55, 7, '2013-03-09 10:57:34', 'DelhiDelhiDelhiDelhiDelhiDelhiDelhi\r\n                                    ', 'DelhiDelhiDelhiDelhiDelhi\r\n    \r\n                                    ', 'DelhiDelhiDelhiDelhiDelhiDelhiDelhi\r\n    \r\n                                    ', 21, 8, NULL, 'jjjjjjjj\r\n                                        ', 'jjjjjjjjjjj\r\n                                        ', 'jjjjjjjjjjjj\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(27, 24, 55, 7, '2013-03-09 11:04:06', 'updateupdateupdateupdate                         ', 'updateupdateupdateupdateupdateupdate\r\n    \r\n                                    ', 'vupdateupdateupdateupdateupdate\r\n    \r\n                                    ', 21, 8, NULL, 'notificationsresultnotificationsresultnotificationsresultnotificationsresul                                   ', 'notificationsresultnotificationsresultnotificationsresult\r\n                                        ', 'notificationsresultnotificationsresultnotificationsresultnotificationsresult                                       ', NULL, 'none', '', NULL, NULL, NULL),
+(28, 24, 55, 7, '2013-03-09 11:05:50', 'notificationsresultnotificationsresult\r\n    \r\n                                    ', 'notificationsresultnotificationsresult\r\n    \r\n                                    ', 'notificationsresultnotificationsresultnotificationsresult\r\n    \r\n                                    ', 21, 8, NULL, 'notificationsresultnotificationsresultnotificationsresultnotificationsresult                                       ', 'notificationsresultnotificationsresultnotificationsresultnotificationsresultnotificationsresult\r\n                                        ', 'notificationsresultnotificationsresultnotificationsresultnotificationsresultnotificationsresultnotificationsresult\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(29, 24, 55, 7, '2013-03-09 11:10:13', 'notifications  \r\n                                    ', 'notifications\r\n    \r\n                                    ', 'notifications\r\n    \r\n                                    ', 21, 8, NULL, 'notificationsnotifications\r\n                                        ', 'notificationsnotifications\r\n                                        ', 'notificationsnotifications\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(30, 24, 55, 7, '2013-03-09 11:15:01', 'notificationsbacknotificationsback\r\n    \r\n                                    ', 'notificationsbacknotificationsback\r\n    \r\n                                    ', 'notificationsback\r\n    \r\n                                    ', 21, 8, NULL, 'notificationsbacknotificationsback                                      ', 'notificationsbacknotificationsback\r\n                                        ', 'notificationsbacknotificationsback\r\n                                        ', NULL, 'none', '', NULL, NULL, NULL),
+(31, 24, 55, 7, '2013-03-09 17:07:38', 'notificationsback\r\n                                    ', 'notificationsback\r\n    \r\n                                    ', 'notificationsback\r\n    \r\n                                    ', 21, 8, NULL, 'Cena Cena Cena Cena Cena Cena v\r\n                                        ', 'Cena Cena Cena Cena Cena Cena \r\n                                        ', 'vvvvvCena Cena Cena Cena Cena Cena Cena Cena \r\n                                        ', NULL, 'c:	emp', '', NULL, NULL, NULL),
+(32, 24, 55, 1, '2013-03-09 12:42:08', 'patientSessionpatientSession                               ', 'patientSessionpatientSession\r\n    \r\n                                    ', 'patientSessionpatientSession\r\n    \r\n                                    ', 21, NULL, NULL, NULL, NULL, NULL, NULL, 'none', '', NULL, NULL, NULL),
+(33, 24, 56, 7, '2013-03-09 17:32:48', 'Tendulkar                 ', 'Tendulkar                 \r\n    \r\n                                    ', 'Tendulkar                 \r\n    \r\n                                    ', 21, 8, NULL, 'attachmentattachmentattachment\r\n                                        ', 'attachmentattachmentattachment\r\n                                        ', 'attachmentattachmentattachment\r\n                                        ', NULL, 'uploads/Tulips.jpg', '', NULL, NULL, NULL),
+(34, 24, 55, 7, '2013-03-09 17:49:53', 'salmansalmansalmansalmansalman\r\n                                    ', 'salmansalmansalmansalmansalman\r\n    \r\n                                    ', 'salmansalmansalmansalman\r\n    \r\n                                    ', 21, 8, NULL, '\r\n    salmansalmansalmansalmansalmansalman                                    ', 'salmansalmansalmansalmansalmansalman\r\n                                        ', 'salmansalmansalman\r\n                                        ', NULL, '', '', NULL, NULL, NULL),
+(35, 24, 55, 2, '2013-03-09 17:51:38', 'DhyaniDhyaniDhyaniDhyaniDhyaniDhyaniv\r\n    \r\n                                    ', 'DhyaniDhyaniDhyaniDhyaniDhyaniDhyani\r\n    \r\n                                    ', 'DhyaniDhyaniDhyaniDhyaniDhyaniDhyaniDhyani\r\n    \r\n                                    ', 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(36, 24, 56, 7, '2013-03-09 17:56:10', 'DhyaniDhyaniDhyani\r\n                                    ', 'DhyaniDhyaniDhyani\r\n    \r\n                                    ', 'DhyaniDhyaniDhyaniDhyaniDhyaniDhyaniDhyaniDhyaniv\r\n    \r\n                                    ', 21, 8, NULL, 'ravi\r\n                                        ', 'raviraviraviraviraviravi', 'raviraviraviravi\r\n                                        ', NULL, 'uploads/Hydrangeas.jpg', 'uploads/Jellyfish.jpg', NULL, NULL, NULL),
+(37, 21, 54, 7, '2013-03-09 18:13:13', 'bombaybombaybombaybombaybombaybombaybombay                           ', 'bombaybombaybombaybombaybombaybombay\r\n    \r\n                                    ', 'bombaybombaybombaybombay\r\n    \r\n                                    ', 24, 8, NULL, 'priyapriyapriyapriyapriyapriyapriyapriyapriyapriya', '\r\n                                        priyapriyapriyapriyapriyapriyapriyapriyapriyapriya', 'priyapriyapriyapriyapriyapriyapriyapriya\r\n                                        ', NULL, 'uploads/Chrysanthemum.jpg', 'uploads/Hydrangeas.jpg', 'uploads/Tulips.jpg', 'uploads/Koala.jpg', 'uploads/Lighthouse.jpg'),
+(38, 24, 55, 2, '2013-03-09 19:35:13', 'statusstatusstatusstatusstatusstatusvvvvv                              ', 'statusstatusstatusstatusstatusstatusstatusstatus\r\n    \r\n                                    ', 'statusstatusstatusstatusstatusstatusstatus\r\n    \r\n                                    ', 21, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -346,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   PRIMARY KEY (`PATIENT_ID`),
   UNIQUE KEY `PATIENT_U1` (`ACCOUNT_ID`),
   KEY `PATIENT_FK1` (`GENDER_CD`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=57 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=58 ;
 
 --
 -- Dumping data for table `patient`
@@ -358,7 +391,8 @@ INSERT INTO `patient` (`PATIENT_ID`, `LAST_NAME`, `MIDDLE_NAME`, `FIRST_NAME`, `
 (53, 'patient', NULL, 'patient', NULL, NULL, 'patient@patient.com', NULL, 'M', '01/01/1900', 96, NULL, NULL, NULL, NULL, NULL, NULL, 'E'),
 (54, 'hhh', NULL, 'hh', NULL, NULL, 'bbb@rgmai.com', NULL, 'M', '01/01/1900', 97, NULL, NULL, NULL, NULL, NULL, NULL, 'E'),
 (55, 'patient1', NULL, 'patient1', NULL, NULL, 'patient1.patient1@patient1.com', NULL, 'M', '01/01/1900', 103, NULL, NULL, NULL, NULL, NULL, NULL, 'E'),
-(56, 'Test patient', '', 'Test patient', NULL, NULL, 'test@testp.com', NULL, 'M', '01/01/1900', 104, 'newyork', 'newyork', 'VA', '22222-2222', '22222222222222', '22222222222222', 'E');
+(56, 'Test patient', '', 'Test patient', NULL, NULL, 'test@testp.com', NULL, 'M', '01/01/1900', 104, 'newyork', 'newyork', 'VA', '22222-2222', '22222222222222', '22222222222222', 'E'),
+(57, 'oooooooooo', NULL, 'oooooooo', NULL, NULL, 'o@omail.com', NULL, 'M', '01/01/1900', 105, NULL, NULL, NULL, NULL, NULL, NULL, 'E');
 
 -- --------------------------------------------------------
 
@@ -493,6 +527,8 @@ INSERT INTO `rf_rfrl_status` (`RFRL_STATUS_CD`, `DESCRIPTION`) VALUES
 (6, 'Closed'),
 (1, 'Pending'),
 (3, 'Received'),
+(8, 'Refer result received'),
+(7, 'Refer result Sent'),
 (2, 'Sent'),
 (4, 'Verified');
 
@@ -620,7 +656,7 @@ CREATE TABLE IF NOT EXISTS `user_account` (
   `ANSWER_3` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`ACCOUNT_ID`),
   UNIQUE KEY `USER_ACCOUNT_U1` (`LOGIN_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=105 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=106 ;
 
 --
 -- Dumping data for table `user_account`
@@ -678,7 +714,8 @@ INSERT INTO `user_account` (`ACCOUNT_ID`, `ACCOUNT_TYPE`, `LOGIN_ID`, `PASSWORD`
 (101, 'organization', 'oooooo', '9982b2a7fceaaee2c8444b5086aee008', '', '', '', '', '', ''),
 (102, 'staff', 'doctor1', '45f678b147fdf275c35b60bac2360984', '', '', '', '', '', ''),
 (103, 'patient', 'patient1.patient1@patient1.com', '8103cfda42d725cd38e8bdf9610ef9a6', '', '', '', '', '', ''),
-(104, 'patient', 'test@testp.com', 'cf323804a9ab994206406e355a408e87', '', '', '', '', '', '');
+(104, 'patient', 'test@testp.com', 'cf323804a9ab994206406e355a408e87', '', '', '', '', '', ''),
+(105, 'patient', 'o@omail.com', '9982b2a7fceaaee2c8444b5086aee008', '', '', '', '', '', '');
 
 --
 -- Constraints for dumped tables

@@ -19,6 +19,11 @@ jQuery(function($){
         $('#notifications').slideUp(4000).delay(25000);
     }   
     
+    if(tech=='sent'){
+        $('#notificationsback').show();
+        $('#notificationsback').slideUp(4000).delay(25000);
+    }   
+    
     
 });
 </script>
@@ -26,6 +31,10 @@ jQuery(function($){
 
 <span class="notifications" id="notifications" style="display: none;" >		
 		<p>Your referral has been sent successfully.</p>
+		</span>
+
+<span class="notificationsback" id="notificationsback" style="display: none;" >		
+		<p>Your referral result has been sent successfully.</p>
 		</span>
 
 

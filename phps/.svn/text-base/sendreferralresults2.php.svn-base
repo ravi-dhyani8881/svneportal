@@ -5,17 +5,27 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
     ?>
 
     <script type="text/javascript">
-        
+            
         function getTotalRecordOnAjax() {                                     
             var textselect=$('#referal option:selected').val();            
             var url="checkEmailExist.php?email="+textselect+'&method=getreferalDetails';
             $.getJSON(url, function(data) {			                                              
+
+                $('#hfield').append('<input type="hidden" id="staffid" name="staffid" value="'+data.staff_id+'" />');
+                $('#hfield').append('<input type="hidden" id="pid" name="pid" value="'+data.patient_id+'" />');
+                
+                
                 $("#providername").val(data.dfirst_name +' '+data.dlast_name);
-                $("#testtoperform").val(data.tests_to_perform_txt);                                    
+                $("#testtoperform").val(data.tests_to_perform_txt);    
+                $("#specialnstruc").val(data.spcl_inst_txt);    
+                $("#othercomment").val(data.other_comments_txt);    
+                
+                
+                
                 $("#patientname").val(data.pfirst_name +' '+data.plast_name);
                 $("#organization").val(data.dorg_name);            
                 $("#pdob").val(data.pDATE_OF_BIRTH);
-                        
+                            
                 if(data.pGENDER_REPLACE=='M'){
                     $("#gender").val("Male");
                 }else{
@@ -23,7 +33,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 }                        
             });                                    
         }
-        
+            
         $(function(){
             $('#swfupload-control').swfupload({
                 upload_url: "upload-file.php",
@@ -77,13 +87,27 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 item.find('div.progress').css('width', '100%');
                 item.find('span.progressvalue').text('100%');
                 var pathtofile='<a href="uploads/'+file.name+'" target="_blank" >view &raquo;</a>';
+                if($('#upload1').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload1" name="upload1" value="uploads/'+file.name+'" />');
+                }else if($('#upload2').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload2" name="upload2" value="uploads/'+file.name+'" />'); 
+                }else if($('#upload3').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload3" name="upload3" value="uploads/'+file.name+'" />'); 
+                }else if($('#upload4').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload4" name="upload4" value="uploads/'+file.name+'" />'); 
+                }else if($('#upload5').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload5" name="upload5" value="uploads/'+file.name+'" />'); 
+                }
+                
+                
+                
                 item.addClass('success').find('p.status').html('Done!!! | '+pathtofile);
             })
             .bind('uploadComplete', function(event, file){
                 // upload has completed, try the next one in the queue
                 $(this).swfupload('startUpload');
             })                      
-                                                                
+                                                                    
         });	
 
     </script>
@@ -100,13 +124,14 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                              background:url('../resources/js/swfupload/cancel.png') no-repeat; cursor:pointer; }
         </style>
 
+        <span id="up"></span>
         <tr>
             <td style="background-color:white;height:600px;width:300px;vertical-align:middle;">
                 <?php
                 include( "navigationd.php");
 
                 $account_id = $_SESSION['staff_account_id'];
-                $result = $db->getReferrals($account_id, '3');
+                $result = $db->getReferralsDrop($account_id, '3');
                 ?>
             <script>
                 $(function() {
@@ -160,6 +185,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                     <p>
                                         Name:</p></td>
                                 <td class="Right">
+                                    <span id="hfield"></span>
                                     <p><input class="width320" type="text" id="providername" name="providername" size="50" maxlength="50" /></p>
                                 </td>
                             </tr>
@@ -208,6 +234,26 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                         </textarea></p>
                                 </td>
                             </tr>
+                           
+                            
+                            <tr class="textBoxTable"><td class="Left">
+                                    <p>
+                                        Special Instructions:</p></td>
+                                <td class="Right">
+                                    <p><textarea rows="4" cols="50" id="specialnstruc" name="specialnstruc" class="width320"></textarea></p>
+                                </td>
+                            </tr>
+                            
+                             <tr class="textBoxTable"><td class="Left">
+                                    <p>
+                                        Other Comments:</p></td>
+                                <td class="Right">
+                                    <p><textarea rows="4" cols="50" id="othercomment" name="othercomment" class="width320">
+
+                                        </textarea></p>
+                                </td>
+                            </tr>
+                            
                             <tr class="textBoxTable"><td class="Left">
                                     <p class="bold">
                                         Generic Information</p></td>
@@ -229,7 +275,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                     <p>
                                         Interpretations & Comments:</p></td>
                                 <td class="Right">
-                                    <p><textarea rows="4" cols="50" name="comments" class="width320">
+                                    <p><textarea rows="4" cols="50" name="intercomments" class="width320">
 
                                         </textarea></p>
                                 </td>
@@ -282,9 +328,39 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
 } else {
 
     if (isset($_POST['action'])) {
-        if ($_POST['action'] == 'Send Now')
-            $nextpage = 'testUpload.php';
-        else if ($_POST['action'] == 'Send Later')
+        if ($_POST['action'] == 'Send Now') {
+
+
+            $referalid = $_POST['doctorsname'];
+            $staffid = $_POST['staffid'];
+            $pid = $_POST['pid'];
+            $providername = $_POST['providername'];
+            $providerOrganization = $_POST['organization'];
+            
+            $testtoperform = $_POST['testtoperform'];
+            
+            $specialnstruc = $_POST['specialnstruc'];
+            $othercomment = $_POST['othercomment'];
+            
+            $testresults = $_POST['testresults'];
+            $intercomments = $_POST['intercomments'];
+            
+            $treatment = $_POST['treatment'];
+            $uploadd1 = $_POST['upload1'];            
+            $uploadd2 = $_POST['upload2'];
+            $uploadd3 = $_POST['upload3'];
+            $uploadd4 = $_POST['upload4'];
+            $uploadd5 = $_POST['upload5'];
+            
+            
+            
+            
+              mysql_query("update dr_patient_refrl set RFRD_RESULTS_TXT='$testresults' , RFRD_COMMENTS_TXT='$intercomments' , RFRNG_STATUS_CD= 7 , RFRD_STATUS_CD=8 , RFRD_RECMMD_TRMT_TXT='$treatment'
+                       , attachment1='$uploadd1' , attachment2='$uploadd2' , attachment3='$uploadd3', attachment4='$uploadd4', attachment5='$uploadd5'  WHERE STAFF_ID = '$staffid' && PATIENT_ID='$pid' && REFERRAL_ID='$referalid' ");
+
+
+            $nextpage = 'viewreferralsent.php?status_cd=2&msg=sent';
+        } else if ($_POST['action'] == 'Send Later')
             $nextpage = 'maind.php';
         else if ($_POST['action'] == 'Cancel')
             $nextpage = 'maind.php';

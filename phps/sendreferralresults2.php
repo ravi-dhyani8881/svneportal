@@ -87,6 +87,20 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                 item.find('div.progress').css('width', '100%');
                 item.find('span.progressvalue').text('100%');
                 var pathtofile='<a href="uploads/'+file.name+'" target="_blank" >view &raquo;</a>';
+                if($('#upload1').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload1" name="upload1" value="uploads/'+file.name+'" />');
+                }else if($('#upload2').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload2" name="upload2" value="uploads/'+file.name+'" />'); 
+                }else if($('#upload3').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload3" name="upload3" value="uploads/'+file.name+'" />'); 
+                }else if($('#upload4').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload4" name="upload4" value="uploads/'+file.name+'" />'); 
+                }else if($('#upload5').val()==undefined){
+                    $('#up').append('<input type="hidden" id="upload5" name="upload5" value="uploads/'+file.name+'" />'); 
+                }
+                
+                
+                
                 item.addClass('success').find('p.status').html('Done!!! | '+pathtofile);
             })
             .bind('uploadComplete', function(event, file){
@@ -110,13 +124,14 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                              background:url('../resources/js/swfupload/cancel.png') no-repeat; cursor:pointer; }
         </style>
 
+        <span id="up"></span>
         <tr>
             <td style="background-color:white;height:600px;width:300px;vertical-align:middle;">
                 <?php
                 include( "navigationd.php");
 
                 $account_id = $_SESSION['staff_account_id'];
-                $result = $db->getReferrals($account_id, '3');
+                $result = $db->getReferralsDrop($account_id, '3');
                 ?>
             <script>
                 $(function() {
@@ -331,15 +346,20 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
             $intercomments = $_POST['intercomments'];
             
             $treatment = $_POST['treatment'];
+            $uploadd1 = $_POST['upload1'];            
+            $uploadd2 = $_POST['upload2'];
+            $uploadd3 = $_POST['upload3'];
+            $uploadd4 = $_POST['upload4'];
+            $uploadd5 = $_POST['upload5'];
             
             
             
             
               mysql_query("update dr_patient_refrl set RFRD_RESULTS_TXT='$testresults' , RFRD_COMMENTS_TXT='$intercomments' , RFRNG_STATUS_CD= 7 , RFRD_STATUS_CD=8 , RFRD_RECMMD_TRMT_TXT='$treatment'
-                         WHERE STAFF_ID = '$staffid' && PATIENT_ID='$pid' && REFERRAL_ID='$referalid' ");
+                       , attachment1='$uploadd1' , attachment2='$uploadd2' , attachment3='$uploadd3', attachment4='$uploadd4', attachment5='$uploadd5'  WHERE STAFF_ID = '$staffid' && PATIENT_ID='$pid' && REFERRAL_ID='$referalid' ");
 
 
-            $nextpage = 'maind.php';
+            $nextpage = 'viewreferralsent.php?status_cd=2&msg=sent';
         } else if ($_POST['action'] == 'Send Later')
             $nextpage = 'maind.php';
         else if ($_POST['action'] == 'Cancel')

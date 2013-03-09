@@ -360,7 +360,7 @@ Other Comments:</p> </td>
 
 		else if( $_POST['action']=='Send Results')
 
-			$nextpage='sendreferralresults.php';
+			$nextpage='sendreferralresults2.php';
 
 		else if( $_POST['action']=='Cancel')
 

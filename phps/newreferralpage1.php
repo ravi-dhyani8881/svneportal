@@ -28,29 +28,29 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
         </td>
 
         <td style="background-color:white;width:900px;text-align:top;float:left;">
-<table style="margin: 40px 50px 40px;width:800px" cellpadding="0px" cellspacing="0px;" >
+            <table style="margin: 40px 50px 40px;width:800px" cellpadding="0px" cellspacing="0px;" >
 
                 <tr><td >
 
-                                    <span class="left-box"></span><span class="cent-box" style="width:758px;">Patient Referral </span><span class="right-box"></span>
+                        <span class="left-box"></span><span class="cent-box" style="width:758px;">Patient Referral </span><span class="right-box"></span>
 
-                                </td></tr>
+                    </td></tr>
 
                 <tr><td>
 
 
 
                         <table class="main" style="width:100%">
-<tr><td class="Left">
+                            <tr><td class="Left">
                                     <p>Referral Type:</p></td>
                                 <td class="Right">
                                     <p>Practice<input type="radio" name="type" value="practice">&nbsp;&nbsp;&nbsp;Physician<input type="radio" name="type" value="physician">
-&nbsp;&nbsp;&nbsp;Dentist<input type="radio" name="type" value="dentist">&nbsp;&nbsp;&nbsp;Hospital<input type="radio" name="type" value="hospital">&nbsp;&nbsp;&nbsp;Nurse<input type="radio" name="type" value="nurse">
-&nbsp;&nbsp;&nbsp;Administrator<input type="radio" name="type" value="administrator">&nbsp;&nbsp;&nbsp;Laboratory<input type="radio" name="type" value="laboratory">
-&nbsp;&nbsp;&nbsp;Radiology<input type="radio" name="type" value="radiology"></p>
+                                        &nbsp;&nbsp;&nbsp;Dentist<input type="radio" name="type" value="dentist">&nbsp;&nbsp;&nbsp;Hospital<input type="radio" name="type" value="hospital">&nbsp;&nbsp;&nbsp;Nurse<input type="radio" name="type" value="nurse">
+                                        &nbsp;&nbsp;&nbsp;Administrator<input type="radio" name="type" value="administrator">&nbsp;&nbsp;&nbsp;Laboratory<input type="radio" name="type" value="laboratory">
+                                        &nbsp;&nbsp;&nbsp;Radiology<input type="radio" name="type" value="radiology"></p>
                                 </td>
                             </tr>
-<tr class="textBoxTable"><td class="Left">
+                            <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         &nbsp;</p></td>
                                 <td class="Right">
@@ -60,118 +60,118 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
                                 </td>
                             </tr>
 
-<tr class="textBoxTable"><td class="Left">
+                            <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         Select Doctor to refer to:</p></td>
                                 <td class="Right">
                                     <p><span class="fltLftSelect">Name:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <select name="doctorname" class="selectBox">
+                                        <select name="doctorname" class="selectBox">
 
-                                        <!--
-                                        
-                                        <option value="John Doe">John Smith</option>
-                                        
-                                        <option value="Jane Doe">Jane Smith</option>
-                                        
-                                        -->
+                                            <!--
+                                            
+                                            <option value="John Doe">John Smith</option>
+                                            
+                                            <option value="Jane Doe">Jane Smith</option>
+                                            
+                                            -->
 
-    <?php
-    echo $db->getDoctorsList($doctor_account_id, $rfrd_staff_id);
-    ?>
+                                            <?php
+                                            echo $db->getDoctorsList($doctor_account_id, $rfrd_staff_id);
+                                            ?>
 
-                                    </select></p>
+                                        </select></p>
                                 </td>
                             </tr>
 
-<tr class="textBoxTable"><td class="Left">
+                            <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         &nbsp;</p></td>
                                 <td class="Right">
                                     <p><span class="fltLftSelect">Specialty:</span>
 
-                                    <select name="specialties" class="selectBox">
+                                        <select name="specialties" class="selectBox">
 
-                                        <!--  option value="orthopedic">Orthopedic</option>
-                                        
-                                        <option value="pediatrics">Pediatrics</option>
-                                        
-                                        <option value="opthomology">Opthomology</option>
-                                        
-                                        -->
+                                            <!--  option value="orthopedic">Orthopedic</option>
+                                            
+                                            <option value="pediatrics">Pediatrics</option>
+                                            
+                                            <option value="opthomology">Opthomology</option>
+                                            
+                                            -->
 
-    <?php
-    echo $db->getList('rf_spclty_type', 'spclty_type_cd', 'description', '9');
-    ?>
+                                            <?php
+                                            echo $db->getList('rf_spclty_type', 'spclty_type_cd', 'description', '9');
+                                            ?>
 
-                                    </select></p>
+                                        </select></p>
                                 </td>
                             </tr>
 
-<tr class="textBoxTable"><td class="Left">
+                            <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         Location:</p></td>
                                 <td class="Right">
                                     <p><span class="fltLftSelect">City:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="text" name="city" size="25" maxlength="25" value="" class="width320"/></p>
+                                        <input type="text" name="city" size="25" maxlength="25" value="" class="width320"/></p>
                                 </td>
                             </tr>
 
-<tr class="textBoxTable"><td class="Left">
+                            <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         &nbsp;</p></td>
                                 <td class="Right">
                                     <p><span class="fltLftSelect">State:</span>
 
-                                    <select name="state" class="selectBox">
+                                        <select name="state" class="selectBox">
 
-                                        <!--
-                                        
-                                        <option value="md">MD</option>
-                                        
-                                        <option value="va">VA</option>
-                                        
-                                        <option value="wv">WV</option>
-                                        
-                                        -->
+                                            <!--
+                                            
+                                            <option value="md">MD</option>
+                                            
+                                            <option value="va">VA</option>
+                                            
+                                            <option value="wv">WV</option>
+                                            
+                                            -->
 
 
 
-    <?php
-    echo $db->getList('rf_state', 'state_cd', 'state_descr', '');
-    ?>
+                                            <?php
+                                            echo $db->getList('rf_state', 'state_cd', 'state_descr', '');
+                                            ?>
 
-                                    </select></p>
+                                        </select></p>
                                 </td>
                             </tr>
-<tr class="textBoxTable"><td class="Left">
+                            <tr class="textBoxTable"><td class="Left">
                                     <p>
                                         Select Patient:</p></td>
                                 <td class="Right">
                                     <p><span class="fltLftSelect">Name:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                   <select name="patientname" class="selectBox">
+                                        <select name="patientname" class="selectBox">
 
-                                        <!--
-                                       
-                                       <option value="John Doe">Rick Williams</option>
-                                       
-                                       <option value="Jane Doe">James Williams</option>
-                                       
-                                        -->
+                                            <!--
+                                           
+                                           <option value="John Doe">Rick Williams</option>
+                                           
+                                           <option value="Jane Doe">James Williams</option>
+                                           
+                                            -->
 
-    <?php
-    echo $db->getPatientsList($doctor_account_id, $patient_id);
-    ?>
+                                            <?php
+                                            echo $db->getPatientsList($doctor_account_id, $patient_id);
+                                            ?>
 
-                                    </select>
-</p>
+                                        </select>
+                                    </p>
                                 </td>
                             </tr>
-<tr class="textBoxTable">
+                            <tr class="textBoxTable">
                                 <td colspan="2" style="float:left;margin-left:220px;">
                                     <input type="submit" name="action" value="Next" style="background-color: #4682B4;border-radius:5px;height: 35px; width: 100px"/>
-									<input type="submit" name="action" value="Cancel" style="background-color: #4682B4;border-radius:5px;height: 35px; width: 100px;margin-left:20px;"/>
+                                    <input type="submit" name="action" value="Cancel" style="background-color: #4682B4;border-radius:5px;height: 35px; width: 100px;margin-left:20px;"/>
                                 </td></tr>
                         </table>
 
