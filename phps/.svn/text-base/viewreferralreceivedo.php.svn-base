@@ -13,7 +13,7 @@ if (!isset($_POST['action'])) { // if page is not submitted to itself echo the f
  	$account_id=$_SESSION['staff_account_id'];
 
  	
-	$result=$db->getReferrals($account_id,'3');
+	$result=$db->getReferralsold($account_id,'3');
  	
  ?>
 </td>

@@ -271,6 +271,33 @@ class DB {
         }
         return $result;
     }
+    
+    
+    public function getReferralsold($doctor_account_id, $status_cd) {
+        $sql = "SELECT staff_id from org_staff where account_id='$doctor_account_id'";
+        $result = mysql_query($sql);
+        $row = mysql_fetch_assoc($result);
+        $staff_id = $row['staff_id'];
+        if ($status_cd == 3) {
+            $result = mysql_query("SELECT dr_patient_refrl.referral_id, dr_patient_refrl.rfrng_date, patient.last_name,patient.first_name,
+						patient.GENDER_REPLACE,patient.date_of_birth, rf_rfrl_status.description, org_staff.last_name as ln,org_staff.first_name as fn
+						from  dr_patient_refrl left outer join patient on dr_patient_refrl.patient_id=patient.patient_id
+						left outer join rf_rfrl_status on  dr_patient_refrl.rfrd_status_cd=rf_rfrl_status.rfrl_status_cd
+						left outer join org_staff on dr_patient_refrl.staff_id= org_staff.staff_id
+						where dr_patient_refrl.rfrd_staff_id='$staff_id' and dr_patient_refrl.rfrd_status_cd='$status_cd'");
+        } else {
+            $result = mysql_query("SELECT dr_patient_refrl.referral_id, dr_patient_refrl.rfrng_date, patient.last_name,patient.first_name,
+					patient.GENDER_REPLACE,patient.date_of_birth, rf_rfrl_status.description, org_staff.last_name as ln,org_staff.first_name as fn
+					from  dr_patient_refrl left outer join patient on dr_patient_refrl.patient_id=patient.patient_id
+					left outer join rf_rfrl_status on  dr_patient_refrl.rfrng_status_cd=rf_rfrl_status.rfrl_status_cd
+					left outer join org_staff on dr_patient_refrl.rfrd_staff_id= org_staff.staff_id
+					where dr_patient_refrl.staff_id='$staff_id' and dr_patient_refrl.rfrng_status_cd='$status_cd'");
+        }
+        return $result;
+    }
+
+    
+    
 
 }
 
